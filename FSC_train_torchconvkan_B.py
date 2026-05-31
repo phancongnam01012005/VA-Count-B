@@ -129,7 +129,8 @@ class TrainData(Dataset):
         self.TransformVal = transform_val(args)
         self.annotations = annotations
         self.neg_annotations = neg_annotations
-        self.im_dir = im_dir
+        # self.im_dir = im_dir
+        self.im_dir = args.im_dir
 
     def __len__(self):
         return len(self.img)
