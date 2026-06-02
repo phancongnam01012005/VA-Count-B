@@ -82,23 +82,23 @@ os.environ["CUDA_LAUNCH_BLOCKING"] = '5'
 
 class TestData(Dataset):
     def __init__(self, args, split='val', do_aug=True):
-        with open(data_path/args.anno_file) as f:
+        with open(args.anno_file) as f:
             annotations = json.load(f)
                 # Load negative annotations
         with open(args.anno_file_negative) as f:
             neg_annotations = json.load(f)
-        with open(data_path/args.data_split_file) as f:
+        with open(args.data_split_file) as f:
             data_split = json.load(f)
 
         self.img = data_split[split]
         random.shuffle(self.img)
         self.split = split
-        self.img_dir = im_dir
+        self.img_dir = args.im_dir
         # self.TransformTrain = transform_train(args, do_aug=do_aug)
         self.TransformVal = transform_val(args)
         self.annotations = annotations
         self.neg_annotations = neg_annotations
-        self.im_dir = im_dir
+        self.im_dir = args.im_dir
 
     def __len__(self):
         return len(self.img)
@@ -335,18 +335,25 @@ if __name__ == '__main__':
     args = get_args_parser()
     args = args.parse_args()
 
-    # load data
     data_path = Path(args.data_path)
-    anno_file = data_path / args.anno_file
-    data_split_file = data_path / args.data_split_file
-    im_dir = data_path / args.im_dir
 
-    with open(anno_file) as f:
-        annotations = json.load(f)
+    args.anno_file = Path(args.anno_file)
+    if not args.anno_file.is_absolute():
+        args.anno_file = data_path / args.anno_file
 
-    with open(data_split_file) as f:
-        data_split = json.load(f)
+    args.anno_file_negative = Path(args.anno_file_negative)
+    if not args.anno_file_negative.is_absolute():
+        args.anno_file_negative = data_path / args.anno_file_negative
+
+    args.data_split_file = Path(args.data_split_file)
+    if not args.data_split_file.is_absolute():
+        args.data_split_file = data_path / args.data_split_file
+
+    args.im_dir = Path(args.im_dir)
+    if not args.im_dir.is_absolute():
+        args.im_dir = data_path / args.im_dir
 
     if args.output_dir:
         Path(args.output_dir).mkdir(parents=True, exist_ok=True)
+
     main(args)
