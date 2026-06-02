@@ -97,18 +97,16 @@ def get_args_parser():
                         help='class json file')
     return parser
 
-args = get_args_parser()
-args = args.parse_args()
+# args = get_args_parser()
+# args = args.parse_args()
 
 class ResizeSomeImage(object):
     def __init__(self, args):
-        args = get_args_parser()
-        args = args.parse_args()
-        # print(dir(args.im_dir.as_posix()))
         self.data_path = Path(args.data_path)
-        self.im_dir = self.data_path/args.im_dir
-        anno_file = self.data_path/args.anno_file
-        data_split_file = self.data_path/args.data_split_file
+
+        self.im_dir = Path(args.im_dir)
+        anno_file = Path(args.anno_file)
+        data_split_file = Path(args.data_split_file)
 
         with open(anno_file) as f:
             self.annotations = json.load(f)
