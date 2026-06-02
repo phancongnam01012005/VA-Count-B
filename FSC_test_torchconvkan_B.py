@@ -335,6 +335,8 @@ if __name__ == '__main__':
     args = get_args_parser()
     args = args.parse_args()
 
+    args.do_aug = False
+
     data_path = Path(args.data_path)
 
     args.anno_file = Path(args.anno_file)
