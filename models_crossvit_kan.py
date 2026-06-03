@@ -217,15 +217,17 @@ class CrossAttentionBlockKAN(nn.Module):
 
         self.kan_ffn = KANFFN(
             in_features=dim,
-            hidden_features=int(dim * mlp_ratio),
+            hidden_features=dim,
             out_features=dim,
             drop=drop
         )
 
         self.drop_path2 = DropPath(drop_path) if drop_path > 0. else nn.Identity()
 
+        self.kan_scale = nn.Parameter(torch.tensor(0.1))
+
     def forward(self, x, y):
         x = x + self.drop_path0(self.selfattn(self.norm0(x)))
         x = x + self.drop_path1(self.attn(self.norm1(x), y))
-        x = x + self.drop_path2(self.kan_ffn(self.norm2(x)))
+        x = x + self.drop_path2(self.kan_scale * self.kan_ffn(self.norm2(x)))
         return x
