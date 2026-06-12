@@ -11,7 +11,7 @@ import torch.nn.functional as F
 import torchvision.utils
 
 from timm.models.vision_transformer import PatchEmbed, Block
-from models_crossvit_kan import CrossAttentionBlockKAN
+from models_crossvit_kanffn import CrossAttentionBlockKAN
 
 from util.pos_embed import get_2d_sincos_pos_embed
 

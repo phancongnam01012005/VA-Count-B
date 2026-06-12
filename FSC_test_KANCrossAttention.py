@@ -21,7 +21,7 @@ from tqdm import tqdm
 assert "0.4.5" <= timm.__version__ <= "0.4.9"  # version check
 
 import util.misc as misc
-import models_mae_cross_kan as models_mae_cross
+import models_mae_cross_kanffn as models_mae_cross
 
 
 def get_args_parser():

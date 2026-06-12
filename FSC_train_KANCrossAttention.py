@@ -24,7 +24,7 @@ import util.misc as misc
 from util.misc import NativeScalerWithGradNormCount as NativeScaler
 import util.lr_sched as lr_sched
 from util.FSC147 import transform_train, transform_val
-import models_mae_cross_kan
+import models_mae_cross_kanffn
 
 
 def get_args_parser():
