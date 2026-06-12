@@ -83,25 +83,25 @@ class SupervisedMAE(nn.Module):
         # Density map regresssion module
 
         self.decode_head0 = nn.Sequential(
-            nn.Conv2d(decoder_embed_dim, 256, 3, 1, 1),
+            FastKANConv2DLayer(decoder_embed_dim, 256, 3, 1, 1),
             nn.GroupNorm(8, 256),
             nn.ReLU(inplace=True)
         )
 
         self.decode_head1 = nn.Sequential(
-            nn.Conv2d(256, 256, 3, 1, 1),
+            FastKANConv2DLayer(256, 256, 3, 1, 1),
             nn.GroupNorm(8, 256),
             nn.ReLU(inplace=True)
         )
 
         self.decode_head2 = nn.Sequential(
-            nn.Conv2d(256, 256, 3, 1, 1),
+            FastKANConv2DLayer(256, 256, 3, 1, 1),
             nn.GroupNorm(8, 256),
             nn.ReLU(inplace=True)
         )
 
         self.decode_head3 = nn.Sequential(
-            nn.Conv2d(256, 256, 3, 1, 1),
+            FastKANConv2DLayer(256, 256, 3, 1, 1),
             nn.GroupNorm(8, 256),
             nn.ReLU(inplace=True),
             FastKANConv2DLayer(256, 1, kernel_size=1, stride=1, padding=0)
